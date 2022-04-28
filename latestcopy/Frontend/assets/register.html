@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Registaration Form</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-image: url("https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60");
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid rgb(168, 166, 166);
+        border-radius: 4px;
+        resize: vertical;
+        background-color: lighsalmon;
+      }
+
+      input[type="radio"] {
+        width: 1%;
+        padding-left: 0%;
+        border: 1px solid rgb(168, 166, 166);
+        border-radius: 4px;
+        resize: vertical;
+      }
+      h1 {
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-size: large;
+        font-style: normal;
+        font-weight: bolder;
+        color: coral;
+        text-align: center;
+        text-decoration: underline;
+        padding: 20px;
+      }
+      label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+      }
+      button {
+        position: absolute;
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        margin-left: 180px;
+      }
+      button:hover {
+        background-color: #32a336;
+      }
+      .container {
+        width: 600px;
+        overflow: hidden;
+        margin: auto;
+        margin: 20 0 0 450px;
+        padding: 80px;
+        background: gainsboro;
+        border-radius: 15px;
+      }
+      .col-10 {
+        float: left;
+        width: 30%;
+        margin-top: 6px;
+      }
+      .col-90 {
+        float: left;
+        width: 90%;
+        margin-top: 6px;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      @media screen and (max-width: 600px) {
+        .col-10,
+        .col-90,
+        input[type="submit"] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1><b>EVENT REGISTRATION FORM</b></h1>
+    
+  <div class="flexible" id="flexible"></div>
+    <div class="container">
+
+      <form method="post" action="/register">
+        <div class="row">
+          <div class="col-10">
+            <label for="fname">First Name:</label>
+          </div>
+          <div class="col-90">
+            <input
+              type="text"
+              id="fname"
+              name="firstname"
+              placeholder="Enter your first name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <label for="lname">Last Name:</label>
+          </div>
+          <div class="col-90">
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Enter your last name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <label for="email">Email:</label>
+          </div>
+          <div class="col-90">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Should consist @"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <label for="mobile">Mobile:</label>
+          </div>
+          <div class="col-90">
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              placeholder="Enetr only 10 digits"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <label for="gender" required>Gender:</label>
+          </div>
+          <div class="col-90">
+            <input type="radio" id="male" name="gender" value="male" /> Male
+            <input type="radio" id="female" name="gender" value="female" />
+            Female
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10">
+            <label for="city">City:</label>
+          </div>
+          <div class="col-90">
+            <input type="text" id="city" name="city" maxlength="10" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10">
+            <label for="state">State:</label>
+          </div>
+          <div class="col-90">
+            <input type="text" id="state" name="state" />
+          </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="row">
+            <input type="submit" value="Submit" id="submit">
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    function checkFirstName() {
+      const userFirstNamePattern = /[a-zA-z]{5,15}/;
+      const userFirstName = document.querySelector("#fname");
+      return userFirstNamePattern.test(userFirstName.value);
+    }
+
+    function checkLastName() {
+      const userLastNamePattern = /[a-zA-z]{5,15}/;
+      const userLastName = document.querySelector("#lname");
+
+      return userLastNamePattern.test(userLastName.value);
+    }
+
+    function checkEmail() {
+      const emailpattern =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      const useremail = document.querySelector("#email");
+      return emailpattern.test(useremail.value);
+    }
+
+    function checkPhone() {
+      const phonepattern = /^\d{10}$/;
+      const phonenumber = document.querySelector("#mobile");
+      return phonepattern.test(phonenumber.value);
+    }
+
+    function checkCity() {
+      const usercitypattern = /[a-zA-z]{3,15}/;
+      const usercity = document.querySelector("#city");
+      return usercitypattern.test(usercity.value);
+    }
+
+    function checkState() {
+      const userstatepattern = /[a-zA-z]{3,15}/;
+      const userstate = document.querySelector("#state");
+      return userstatepattern.test(userstate.value);
+    }
+
+  
+
+    function set() {
+      var fname = document.getElementById("fname").value;
+      window.localStorage.setItem("First Name:", fname);
+
+      var lname = document.getElementById("lname").value;
+      window.localStorage.setItem("Last Name", lname);
+
+      var email = document.getElementById("email").value;
+      window.localStorage.setItem("Email", email);
+
+      var mobile = document.getElementById("mobile").value;
+      window.localStorage.setItem("Mobile", mobile);
+
+      var gender = document.querySelector("input[name=gender]:checked").value;
+      window.localStorage.setItem("Gender", gender);
+
+      var city = document.getElementById("city").value;
+      window.localStorage.setItem("City", city);
+
+      var state = document.getElementById("state").value;
+      window.localStorage.setItem("State", state);
+    }
+
+    function handle(event) {
+      event.preventDefault();
+      if (!checkFirstName()) {
+        alert("Enter a valid first name");
+        return;
+      }
+
+      if (!checkLastName()) {
+        alert("Enter a valid last name");
+        return;
+      }
+
+      if (!checkEmail()) {
+        alert("Enter a valid mail");
+        return;
+      }
+
+      if (!checkPhone()) {
+        alert("Enter a valid phone number");
+        return;
+      }
+
+      if (!checkCity()) {
+        alert("Enter a valid city name");
+        return;
+      }
+
+      if (!checkState()) {
+        alert("Enter a valid state name");
+        return;
+      }
+
+    }
+    function checkSession(){
+      let time = localStorage.getItem("loginTime")
+      console.log(time)
+      if(time){
+        var yesterday = new Date(Date.now() - 86400000); // that is: 24 * 60 * 60 * 1000
+        
+      if(time>yesterday){
+        alert("Your session is over.Please login again")
+        window.location.href = '/';
+      }
+      else return;
+      }
+      else{
+        alert("Your session is over.Please login again!!!!")
+        window.location.href = '/';
+      }
+
+    }
+    
+    var x = document.getElementById("flexible");
+    x.addEventListener("load",checkSession());
+    document.getElementById("regis").addEventListener("click", handle);
+
+  </script>
+</html>

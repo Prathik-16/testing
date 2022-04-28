@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Page</title>
+    <style>
+        body{
+    background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60'); 
+  padding-top: 150px;
+}
+
+.container{
+  width: 600px;  
+  height: 400px;
+      overflow: hidden;  
+      margin: auto;  
+      margin: 20 0 0 40px;  
+      padding: 50px;
+      padding-top: 50px; 
+      padding-right: 50px; 
+      background:gainsboro; 
+      border-radius: 15px ;
+      text-align: center;
+      color: coral;     
+}
+
+.button {
+  position: absolute;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: -40px;
+}
+
+#signout{
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  background-color:coral;
+  float: right;
+  margin-top: -100px;
+  margin-right: 30px;
+  
+}
+
+#yes{
+  margin-left: 200px;
+}
+
+#no{
+  margin-left: 200px;
+}
+
+input[type=radio]{
+  transform: scale(1);
+  width: 5%;
+  font-size: x-large;
+  padding-left: 0%;
+  border: 1px solid rgb(168, 166, 166);
+  border-radius: 4px;
+  resize: vertical;
+}
+h1{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: x-large;
+  font-style: normal;
+  font-weight:bolder;
+  color:coral;
+  text-align: center;
+  text-decoration: none;
+  padding:10px;
+}
+
+.feedback-container{
+   
+  width: 500px;  
+      overflow: auto;  
+      margin: auto;  
+      margin: 20 0 0 40px;  
+      padding: 50px;
+      padding-top: 5px; 
+      padding-right: 10px; 
+      background:gainsboro; 
+      border-radius: 15px ;  
+      position: fixed;
+}
+
+
+.wrapper{
+  position: fixed;
+  display: none;
+  z-index: 9;
+  top:0;
+  height: 100%;
+  width:100%;
+  overflow: auto;
+  background-color: rgba(0, 0,0, 0.4);
+  padding-top: 17%; 
+  padding-left: 30%;
+}
+
+.col-10{
+  float: left;
+  width:30%;
+  margin-top: 6px;
+}
+.col-90{
+  float: left;
+  width: 90%;
+  margin-top: 6px;
+}
+.row:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.image{
+  width: 200px;
+  background-color: gainsboro;
+  opacity: 0.5;
+}
+
+
+    </style>
+</head>
+</head>
+
+<body>
+    <button class="signout" id="signout" onclick="signout()"> SignOut </button>
+
+    <div class="flexible" id="flexible"></div>
+    <div class="wrapper" id="wrapper">
+        <div class="feedback-container" id="feedback-container1">
+            <div class="row" id="row">
+                <img style="float: right;" src="https://img.icons8.com/small/2x/delete-sign.png" onclick="closeForm()">
+                <br>
+                <h1>Did this website help you in finding your desired event?</h1>
+                <h3>Help us improve your experience</h3>
+                <div class="col-90">
+                    <input type="radio" id="select" name="feedback" value="Yes" onchange="yes()" /> Yes <br>
+                    <input type="radio" id="No" name="feedback" value="No" onchange="no()" /> No <br>
+                    <input type="radio" id="Maybe" name="feedback" value="Maybe" onchange="yes()" /> Not sure yet <br>
+
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <div class="wrapper" id="wrapper1">
+        <div class="feedback-container" id="feedback-container2">
+            <div class="row" id="row">
+                <img style="float: right;" src="https://img.icons8.com/small/2x/delete-sign.png" onclick="closeForm1()">
+                <br>
+                <h1>What feedback would you like to share?</h1>
+                <h3>Your input is valuable</h3>
+                <textarea rows="4" cols="55" placeholder="Tell us your feedback"></textarea><br><br>
+                <button type="submit" class="button" form="form1" value="Submit" id="yes">Submit</button>
+
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <div class="wrapper" id="wrapper2">
+        <div class="feedback-container" id="feedback-container3">
+            <div class="row" id="row">
+                <img style="float: right;" src="https://img.icons8.com/small/2x/delete-sign.png" onclick="closeForm2()">
+                <br>
+                <h1>We are sorry to hear that. How can we improve this article?</h1>
+                <h3>Choose any that apply</h3>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                <label for="vehicle1"> Conatins inaccurate or outdated information</label><br><br>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                <label for="vehicle2"> Missing important information</label><br><br>
+                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                <label for="vehicle3"> Confusing or difficult to understand</label><br><br>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                <label for="vehicle1"> Something else</label><br><br>
+                <button class="button" id="no"> Next </button>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="ty" id="ty">
+            <h1>THANK YOU FOR YOUR SUBMISSION!</h1>
+            <img class="image"
+                src="https://media.istockphoto.com/photos/3d-circle-marked-with-green-picture-id185094089?b=1&k=20&m=185094089&s=170667a&w=0&h=I6C9vqRFAEkLO7g8_5niNyR3N3Ira0B5MS2tP9uGniA="
+                alt="tick" />
+            <p><b>You will receive an email shortly regarding the guidelines to be follwed in the event.</b></p>
+        </div>
+        <button class="button" id="submission" onclick="window.location.href = 'feedback';">Give feedback</button>
+    </div>
+    <br>
+
+
+
+</body>
+<script>
+
+  function checkSession(){
+        let time = localStorage.getItem("loginTime")
+        console.log(time)
+        if(time){
+          var yesterday = new Date(Date.now() - 86400000); // that is: 24 * 60 * 60 * 1000
+          
+        if(time>yesterday){
+          alert("Your session is over.Please login again")
+          window.location.href = '/';
+        }
+        else return;
+        }
+        else{
+          alert("Your session is over.Please login again!!!!")
+          window.location.href = '/';
+        }
+  
+      }
+      
+      var x = document.getElementById("flexible");
+      x.addEventListener("load",checkSession());
+  </script>
+<script>
+    
+
+function openForm() {
+  document.getElementById("wrapper").style.display = "none";
+  clearTimeout(myTimeout);
+}
+
+function closeForm() {
+  document.getElementById("wrapper").style.display = "none";
+}
+
+function yes() {
+  document.getElementById("wrapper").style.display = "none";
+  document.getElementById("wrapper1").style.display = "none";
+}
+
+function closeForm1() {
+  document.getElementById("wrapper1").style.display = "none";
+}
+
+function no() {
+  document.getElementById("wrapper").style.display = "none";
+  document.getElementById("wrapper1").style.display = "none";
+  document.getElementById("wrapper2").style.display = "none";
+}
+
+function closeForm2() {
+  document.getElementById("wrapper2").style.display = "none";
+}
+
+function linking1() {
+  window.location.href = "./lastpage.html"
+}
+
+document.getElementById("yes").addEventListener("click", linking1);
+document.getElementById("no").addEventListener("click", linking1);
+
+
+function signout(){
+  localStorage.clear();
+  window.location.href = "/"
+}
+</script>
+
+</html>

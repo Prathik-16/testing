@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 200px;
+      background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+    }
+
+    h1 {
+      color: coral;
+      text-align: center;
+      background-color: gainsboro;
+      padding: 15px;
+      margin-left: 100px;
+      margin-right: 100px;
+      border-radius: 10px;
+    }
+
+    table {
+      border-radius: 10px;
+      width: 100%;
+      background-color: gainsboro;
+      border-collapse: separate;
+      border-spacing: 0 1em;
+
+    }
+
+    table,
+    th,
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    th {
+      background-color: coral;
+    }
+
+    td {
+      text-align: center;
+      height: 30px;
+      vertical-align: bottom;
+      padding: 5px;
+    }
+    #signout{
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  background-color:coral;
+  float: right;
+  margin-top: -100px;
+  margin-right: 30px;
+  
+}
+  </style>
+</head>
+
+<body>
+  <button class="signout" id="signout" onclick="signout()"> SignOut </button>
+  <div class="flexible" id="flexible"></div>
+  <h1>See all the feedback here</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">SlNo</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Feedback</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <%EventsList.forEach(eve=>{%>
+        <tr>
+          <td scope="row">
+            <%= eve._id %>
+          </td>
+          <td>
+            <%= eve.firstname %>
+          </td>
+          <td>
+            <%= eve.lastname %>
+          </td>
+          <td>
+            <%= eve.email %>
+          </td>
+          <td>
+            <%= eve.feedback %>
+          </td>
+        </tr>
+        <%})%>
+
+
+    </tbody>
+  </table>
+</body>
+<script>
+  function checkSession(){
+let time = localStorage.getItem("loginTime")
+console.log(time)
+if(time){
+  var yesterday = new Date(Date.now() - 86400000); // that is: 24 * 60 * 60 * 1000
+  
+if(time>yesterday){
+  
+  alert("Your session is over.Please login again")
+  window.location.href = '/';
+}
+else {
+  let userRole = JSON.parse(localStorage.getItem("userInfo")).roles[0] ;
+  console.log(userRole)
+  if(userRole != "ROLE_ADMIN"){
+    alert("OOPS you are not an admin.Please contact the admin for further details.")
+  window.location.href = '/';
+  }
+};
+}
+else{
+  alert("Your session is over.Please login again!!!!")
+  window.location.href = '/';
+}
+
+}
+
+function signout(){
+  localStorage.clear();
+  window.location.href = "/"
+}
+
+var x = document.getElementById("flexible");
+x.addEventListener("load",checkSession());
+</script>
+
+</html>

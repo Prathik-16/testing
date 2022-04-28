@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  <style>
+    body  
+{  
+    background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  min-height: 100vh;
+}  
+
+.container{  
+    width: 500px;  
+    overflow: hidden;  
+    margin: auto;  
+    padding: 100px;  
+    background-color:gainsboro;  
+    opacity: 1;
+    border-radius: 15px ;  
+    text-align: center;
+    color: coral;
+    top: 100px;
+      
+}  
+
+.digitalclock{
+    border: 1px solid black;
+    width: fit-content;
+    margin: auto;
+    padding: 10px;
+    border-radius: 2px;
+    color: coral;
+    background-color: wheat;
+
+}
+
+.digitalclock h1{
+    display: inline-block;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 5rem;
+}
+
+#start{
+position: absolute;
+    background-color: coral;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: -50px;
+    margin-right: 300px;
+}
+
+@media(max-width:768px){
+    #dash1, #dash2{
+        display: none;
+    }
+    .digitalclock{
+        text-align: center;
+        width: 100%;
+    }
+    .digitalclock h1{
+        display: block;
+    }
+}
+
+@media(max-width:480px){
+    .digitalclock h1{
+        font-size: 4rem;
+    }
+}
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row text-center">
+      <h2>
+        Feeling Bored :( ? LOST TIME IS NEVER FOUND AGAIN !!!
+      </h2>
+      <div class="digitalclock">
+        <h1 id="day">Mon</h1>
+        <h1 id="hour">04</h1>
+        <h1 id="dash1">-</h1>
+        <h1 id="minute">20</h1>
+        <h1 id="dash2">-</h1>
+        <h1 id="ampm">PM</h1>
+      </div>
+      <h3> So HURRY UP!! and register for an event and have the best day of your life</h3>
+      <button class="button" id="start" onclick="linking()">Get Started! </button>
+    </div>
+  </div>
+</body>
+<script >
+  function linking() {
+    window.location.href = "signup"
+}
+
+function calculateTime() {
+    var date = new Date();
+    var dayNumber = date.getDay();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var ampm = hour >= 12 ? 'PM' : 'AM';
+    var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+    hour = hour % 12;
+    hour = hour ? hour : '12';
+    hour = hour < 10 ? '0' + hour : hour;
+    minute = minute < 10 ? '0' + minute : minute;
+    document.getElementById("day").innerHTML = dayNames[dayNumber];
+    document.getElementById("hour").innerHTML = hour;
+    document.getElementById("minute").innerHTML = minute;
+    document.getElementById("ampm").innerHTML = ampm;
+    setTimeout(calculateTime, 200);
+
+}
+
+function checkSession(){
+let time = localStorage.getItem("loginTime")
+console.log(time)
+if(time){
+  var yesterday = new Date(Date.now() - 86400000); // that is: 24 * 60 * 60 * 1000
+  
+if(time>yesterday){
+  localStorage.clear()
+}
+else {
+  let userRole = JSON.parse(localStorage.getItem("userInfo")).roles[0];
+  if(userRole == "ROLE_ADMIN"){
+  window.location.href = 'admin';
+  }
+  if(userRole == "ROLE_USER"){
+  window.location.href = 'event';
+  }
+};
+}
+else{
+}
+
+}
+
+
+window.addEventListener('load', calculateTime)
+window.addEventListener('load',checkSession)
+</script>
+
+</html>

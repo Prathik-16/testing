@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signup.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        *{box-sizing: border-box;
+}
+body{
+    /* background-color: lightsalmon; */
+    background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+}
+input[type=text], input[type=email], input[type=number], input[type=password]
+{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgb(168, 166, 166);
+    border-radius: 4px;
+    resize: vertical;background-color: lighsalmon;
+}
+
+input[type=radio]{
+    width: 1%;
+    padding-left: 0%;
+    border: 1px solid rgb(168, 166, 166);
+    border-radius: 4px;
+    resize: vertical;
+}
+h1{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: large;
+    font-style: normal;
+    font-weight:bolder;
+    color:coral;
+    text-align: center;
+    text-decoration: underline;
+    padding:20px;
+}
+label{
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+button {
+    position: absolute;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 180px;
+    
+}
+button:hover {
+background-color: #32a336;
+}
+.container{
+   
+    width: 600px;  
+        overflow: hidden;  
+        margin: auto;  
+        margin: 20 0 0 450px;  
+        padding: 80px;  
+        background:gainsboro; 
+        border-radius: 15px ;  
+}
+.col-10{
+    float: left;
+    width:30%;
+    margin-top: 6px;
+}
+.col-90{
+    float: left;
+    width: 90%;
+    margin-top: 6px;
+}
+.row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 600px) {
+    .col-10,.col-90,input[type=submit]{
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+    </style>
+
+</head>
+
+<body>
+    <h1><b>SIGN UP</b></h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <label for="name">Name:</label>
+            </div>
+            <div class="col-90">
+                <input type="text" id="name" name="name" placeholder="Enter your user name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label for="email">Email:</label>
+            </div>
+            <div class="col-90">
+                <input type="email" id="email" name="email" placeholder="Should consist @">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label for="role" required>Role:</label>
+            </div>
+            <div class="col-90">
+                <input type="radio" id="user" name="role" value="user" />User
+                <input type="radio" id="admin" name="role" value="admin" />Admin
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label for="password">Password:</label>
+            </div>
+            <div class="col-90">
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label for="CPassword">Confirm Password:</label>
+            </div>
+            <div class="col-90">
+                <input type="password" id="cpassword" name="cpassword" placeholder="Enter your password again">
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <input type="checkbox" onclick="showPassword()">Show Password
+        <div class="row">
+            <a href="login" id="link">Already a user??</a>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button type="submit" name="REGISTER" id="REGISTER">Register</button>
+        </div>
+    </div>
+</body>
+<script>
+    function checkName() {
+    const userFirstNamePattern = /[a-zA-z]{5,15}/;
+    const userFirstName = document.querySelector("#name");
+    return userFirstNamePattern.test(userFirstName.value);
+}
+
+function checkEmail() {
+    const emailpattern = /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/;
+    const useremail = document.querySelector('#email')
+    return emailpattern.test(useremail.value)
+}
+
+function showPassword() {
+    var x = document.getElementById("password");
+    var y = document.getElementById("cpassword");
+    if (x.type === "password") {
+        x.type = "text";
+        y.type = "text";
+    } else {
+        x.type = "password";
+        y.type = "password";
+    }
+}
+
+
+function validatePassword(p) {
+    var p = document.getElementById('password').value,
+        errors = [];
+    if (p.length < 8) {
+        errors.push("Your password must be at least 8 characters");
+    }
+    if (p.search(/[a-z]/i) < 0) {
+        errors.push("Your password must contain at least one letter.");
+    }
+    if (p.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.");
+    }
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+    }
+    return true;
+}
+function checkPassword() {
+
+    var password = document.getElementById('password').value;
+    var cpassword = document.getElementById('cpassword').value;
+    const passwordValidation = validatePassword();
+    if (passwordValidation) {
+        if (password != cpassword) {
+            alert('The entered password does not match with confirm password')
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    else {
+        return false;
+    }
+
+}
+
+function linking() {
+    window.location.href = "./login.html"
+}
+
+async function register() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var role = document.querySelector('input[name=role]:checked').value;
+    let user = { username: name, email: email, password: password, roles: [role] }
+
+    fetch('http://localhost:8080/api/auth/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            console.log('Success:', data);
+            window.location.href = "login";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+    // try {
+    //     const response = await axios.post("http://localhost:8080/api/auth/signup", user)
+    //     console.log(response)
+    //     console.log("Request successful!")
+    //     window.location.href = "./login.html";
+    // } catch (error) {
+    //     console.log(error);
+    // }
+}
+
+
+
+
+function handle(event) {
+    event.preventDefault();
+    if (!checkName()) {
+        alert("Enter a valid name");
+        return;
+    }
+
+    if (!checkEmail()) {
+        alert("Enter a valid mail");
+        return;
+    }
+
+    if (!checkPassword()) {
+        return;
+    }
+
+    register();
+    //linking();
+}
+
+document.getElementById("REGISTER").addEventListener("click", handle);
+
+
+
+
+</script>
+
+</html>

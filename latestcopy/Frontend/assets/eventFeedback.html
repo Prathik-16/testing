@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      padding: 10px;
+    }
+
+    .login {
+      width: 382px;
+      overflow: hidden;
+      margin: auto;
+      margin: 20 0 0 450px;
+      padding: 50px;
+      background-color: gainsboro;
+      opacity: 1;
+      border-radius: 15px;
+      margin-top: 40px;
+
+    }
+
+    label {
+      color: black;
+      font-size: 25px;
+      text-align: center;
+    }
+
+    #submit {
+      position: absolute;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      margin-left: 150px;
+    }
+
+    #fname,
+    #lname,
+    #email,
+    #feedback {
+      width: 350px;
+      height: 30px;
+      border: none;
+      border-radius: 3px;
+      padding-left: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      color: coral;
+      padding: 80px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Please fill in the below details</h1>
+  <div class="flexible" id="flexible"></div>
+  <div class="login">
+    <form method="post" action="/feedback">
+      <label for="fname">First Name</label> <br>
+      <input type="text" id="fname" name="firstname" placeholder="Your name..">
+      <br>
+      <br>
+      <label for="lname">Last Name</label> <br>
+      <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+      <br>
+      <br>
+      <label for="email">Email</label> <br>
+      <input type="email" id="email" name="email" placeholder="Your email..">
+      <br>
+      <br>
+      <label for="feedback">Feedback</label> <br>
+      <input type="text" id="feedback" name="feedback" placeholder="Your email..">
+      <br>
+      <br>
+      <input type="submit" value="Submit" id="submit">
+    </form>
+  </div>
+
+</body>
+<script>
+
+function checkSession(){
+      let time = localStorage.getItem("loginTime")
+      console.log(time)
+      if(time){
+        var yesterday = new Date(Date.now() - 86400000); // that is: 24 * 60 * 60 * 1000
+        
+      if(time>yesterday){
+        alert("Your session is over.Please login again")
+        window.location.href = '/';
+      }
+      else return;
+      }
+      else{
+        alert("Your session is over.Please login again!!!!")
+        window.location.href = '/';
+      }
+
+    }
+    
+    var x = document.getElementById("flexible");
+    x.addEventListener("load",checkSession());
+</script>
+
+</html>

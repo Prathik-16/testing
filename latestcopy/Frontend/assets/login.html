@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="login.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbmNlcnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .login {
+      width: 382px;
+      overflow: hidden;
+      margin: auto;
+      margin: 20 0 0 450px;
+      padding: 50px;
+      background-color: gainsboro;
+      opacity: 1;
+      border-radius: 15px;
+    }
+
+    h2 {
+      text-align: center;
+      color: coral;
+      padding: 80px;
+    }
+
+    label {
+      color: black;
+      font-size: 25px;
+      text-align: center;
+    }
+
+    #Uname {
+      width: 350px;
+      height: 30px;
+      border: none;
+      border-radius: 3px;
+      padding-left: 8px;
+    }
+
+    #Pass {
+      width: 350px;
+      height: 30px;
+      border: none;
+      border-radius: 3px;
+      padding-left: 8px;
+
+    }
+
+    #log {
+      position: absolute;
+      background-color: coral;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      margin-left: 150px;
+    }
+
+    #check {
+      margin-left: 130px;
+    }
+
+    span {
+      color: black;
+      font-size: 17px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body onload="getcookiedata()">
+  <h2>WELCOME !!!</h2><br>
+  <div class="login">
+    <form id="login" method="post">
+      <label><b>User Name
+        </b>
+      </label>
+      <input type="text" name="Uname" id="Uname" placeholder="Username">
+      <br><br>
+      <label><b>Password
+        </b>
+      </label>
+      <input type="Password" name="Pass" id="Pass" placeholder="Password">
+      <br><br>
+      <button type="button" name="log" id="log">Login</button>
+      <br><br><br><br>
+      <input type="checkbox" id="check" onclick="setcookie()">
+      <span>Remember me</span>
+      <br><br>
+
+    </form>
+  </div>
+</body>
+<script>
+
+  function setcookie() {
+    var username = document.getElementById("Uname").value;
+    var password = document.getElementById("Pass").value;
+
+    document.cookie = "myusername=" + username + ";path=http://127.0.0.1:5501/login.html"
+    document.cookie = "mypassword=" + password + ";path=http://127.0.0.1:5501/login.html"
+  }
+
+  function getcookiedata() {
+    console.log(document.cookie);
+    var userdata = getcookie('myusername');
+    var passworddata = getcookie('mypassword');
+
+    document.getElementById("Uname").value = userdata
+    document.getElementById("Pass").value = passworddata
+
+  }
+
+  function getcookie(cname) {
+    var name = cname + " =";
+    var decodecookiee = decodeURIComponent(document.cookie);
+    var ca = decodecookiee.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function checkUserName() {
+    const userNamePattern = /[a-zA-z]{8,15}/;
+    const userName = document.querySelector("#Uname");
+
+    return userNamePattern.test(userName.value);
+  }
+
+  function checkPassword() {
+    const passwordpattern =
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$/;
+    const userpass = document.querySelector("#Pass");
+
+    return passwordpattern.test(userpass.value);
+  }
+
+
+  async function signin() {
+    var name = document.getElementById("Uname").value;
+
+    var password = document.getElementById("Pass").value;
+
+    let user = { username: name, password: password };
+
+
+    fetch('http://localhost:8080/api/auth/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        localStorage.setItem("loginTime", new Date(Date.now()));
+
+        console.log(data.roles);
+        if (data.roles[0] == "ROLE_ADMIN") {
+          alert('Hello Admin');
+          window.location.href='admin';
+        }
+        else {
+          alert('Hello User');
+          window.location.href='event';
+        }
+
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+
+
+  }
+
+  function handle(event) {
+    event.preventDefault();
+
+    if (!checkPassword()) {
+      alert("Enter a valid password");
+      return;
+    }
+
+    signin();
+
+  }
+  document.getElementById("log").addEventListener("click", handle);
+
+</script>
+
+</html>
